@@ -13,11 +13,11 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf shelfTitle='Currently Reading' booksList={this.props.booksList.filter(book => book.shelf === 'currentlyReading')} />
+            <Shelf shelfTitle='Currently Reading' booksList={this.props.booksList.filter(book => book.shelf === 'currentlyReading')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} />
 
-            <Shelf shelfTitle='Want to Read' booksList={this.props.booksList.filter(book => book.shelf === 'wantToRead')} />
+            <Shelf shelfTitle='Want to Read' booksList={this.props.booksList.filter(book => book.shelf === 'wantToRead')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} />
             
-            <Shelf shelfTitle='Read' booksList={this.props.booksList.filter(book => book.shelf === 'read')} /> 
+            <Shelf shelfTitle='Read' booksList={this.props.booksList.filter(book => book.shelf === 'read')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} /> 
           </div>
         </div>
         <div className="open-search">

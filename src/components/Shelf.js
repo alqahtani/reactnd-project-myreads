@@ -9,7 +9,7 @@ class Shelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.booksList.map(book => (
-              <li><Book book={book} /></li>
+              <li><Book book={book} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} /></li>
             ))}
           </ol>
         </div>

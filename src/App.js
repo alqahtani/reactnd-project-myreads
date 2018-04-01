@@ -12,7 +12,12 @@ class BooksApp extends React.Component {
     booksList: []
   }
 
-  componentDidMount() {
+  updateReadingStatus = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then(() => {this.getAllBooks()})
+  }
+
+  getAllBooks = () => {
     BooksAPI.getAll()
       .then((data) => {
         this.setState(() => ({
@@ -21,11 +26,15 @@ class BooksApp extends React.Component {
       })
   }
 
+  componentDidMount() {
+    this.getAllBooks()
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <ListBooks booksList={this.state.booksList} />
+          <ListBooks booksList={this.state.booksList}  onUpdateReadingStatus={(book, shelf) => this.updateReadingStatus(book, shelf)} />
         )} />
 
         <Route path='/search' render={() => (
