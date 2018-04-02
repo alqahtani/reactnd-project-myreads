@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Shelf from './Shelf'
 
 class ListBooks extends Component {
+  static PropTypes = {
+    booksList: PropTypes.array.isRequired,
+    onUpdateReadingStatus: PropTypes.func.isRequired
+  }
 
   render() {
+    const { booksList, onUpdateReadingStatus } = this.props
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -13,11 +20,11 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf shelfTitle='Currently Reading' booksList={this.props.booksList.filter(book => book.shelf === 'currentlyReading')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} />
+            <Shelf shelfTitle='Currently Reading' booksList={booksList.filter(book => book.shelf === 'currentlyReading')} onUpdateReadingStatus={(book, shelf) => onUpdateReadingStatus(book, shelf)} />
 
-            <Shelf shelfTitle='Want to Read' booksList={this.props.booksList.filter(book => book.shelf === 'wantToRead')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} />
+            <Shelf shelfTitle='Want to Read' booksList={booksList.filter(book => book.shelf === 'wantToRead')} onUpdateReadingStatus={(book, shelf) => onUpdateReadingStatus(book, shelf)} />
             
-            <Shelf shelfTitle='Read' booksList={this.props.booksList.filter(book => book.shelf === 'read')} onUpdateReadingStatus={(book, shelf) => this.props.onUpdateReadingStatus(book, shelf)} /> 
+            <Shelf shelfTitle='Read' booksList={booksList.filter(book => book.shelf === 'read')} onUpdateReadingStatus={(book, shelf) => onUpdateReadingStatus(book, shelf)} /> 
           </div>
         </div>
         <div className="open-search">
