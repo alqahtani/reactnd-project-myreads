@@ -9,7 +9,9 @@ import SearchList from './components/SearchList';
 
 class BooksApp extends React.Component {
   state = {
-    booksList: []
+    booksList: [],
+    searchBooksList: [],
+    query: ''
   }
 
   updateReadingStatus = (book, shelf) => {
@@ -26,6 +28,20 @@ class BooksApp extends React.Component {
       })
   }
 
+  onSearch = (term) => {
+    if(term === '') {
+      this.setState({ searchBooksList: [] })
+      return
+    }
+    BooksAPI.search(term)
+      .then((data) => {
+        this.setState({ 
+          searchBooksList: data,
+          query: term 
+        })
+      })
+  }
+
   componentDidMount() {
     this.getAllBooks()
   }
@@ -39,6 +55,9 @@ class BooksApp extends React.Component {
 
         <Route path='/search' render={() => (
           <SearchList 
+            booksList={this.state.booksList}
+            searchBooksList={this.state.searchBooksList}
+            onSearch={(term)=> this.onSearch(term)}
             onUpdateReadingStatus={(book, shelf) => this.updateReadingStatus(book, shelf)}
           />
         )} />
